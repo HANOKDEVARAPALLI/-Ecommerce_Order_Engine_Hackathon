@@ -23,17 +23,19 @@ public class OrderService {
             total += item.getProduct().getPrice() * item.getQuantity();
         }
 
-        // Step 2: Create Order
-        Order order = new Order(orderCounter++, new HashMap<>(cart.getItems()), total);
-        order.setStatus(OrderStatus.PENDING_PAYMENT);
-
-        System.out.println("🧾 Order Created. Total: ₹" + total);
-     // Apply discount
+        // 🔥 Step 2: Apply discount BEFORE creating order
         if (total > 1000) {
             total = total * 0.9;
             System.out.println("🎉 10% discount applied");
         }
-        // Step 3: Payment
+
+        // Step 3: Create Order
+        Order order = new Order(orderCounter++, new HashMap<>(cart.getItems()), total);
+        order.setStatus(OrderStatus.PENDING_PAYMENT);
+
+        System.out.println("🧾 Order Created. Total: ₹" + total);
+
+        // Step 4: Payment
         boolean paymentSuccess = paymentService.processPayment(total);
 
         if (paymentSuccess) {
@@ -68,6 +70,8 @@ public class OrderService {
                     " | Total: ₹" + o.getTotal());
         }
     }
+
+    // 🔥 CANCEL ORDER (CORRECTED)
     public void cancelOrder(int orderId) {
 
         Order order = orders.get(orderId);
@@ -81,9 +85,14 @@ public class OrderService {
             System.out.println("❌ Already cancelled");
             return;
         }
-    
 
-        // restore stock
+        // 🔥 Only PAID orders can be cancelled
+        if (order.getStatus() != OrderStatus.PAID) {
+            System.out.println("❌ Only PAID orders can be cancelled");
+            return;
+        }
+
+        // 🔥 Restore stock
         for (CartItem item : order.getItems().values()) {
             Product p = item.getProduct();
             p.setStock(p.getStock() + item.getQuantity());
