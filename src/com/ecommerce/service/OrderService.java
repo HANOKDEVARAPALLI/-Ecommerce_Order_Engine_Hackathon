@@ -28,7 +28,11 @@ public class OrderService {
         order.setStatus(OrderStatus.PENDING_PAYMENT);
 
         System.out.println("🧾 Order Created. Total: ₹" + total);
-
+     // Apply discount
+        if (total > 1000) {
+            total = total * 0.9;
+            System.out.println("🎉 10% discount applied");
+        }
         // Step 3: Payment
         boolean paymentSuccess = paymentService.processPayment(total);
 
@@ -77,6 +81,7 @@ public class OrderService {
             System.out.println("❌ Already cancelled");
             return;
         }
+    
 
         // restore stock
         for (CartItem item : order.getItems().values()) {
