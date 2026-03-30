@@ -26,8 +26,15 @@ A distributed e-commerce backend simulation built using Core Java.
 
 ---
 
+
 ## ⚙️ How to Run
 
 1. Clone the repository:
 ```bash
 git clone https://github.com/HANOKDEVARAPALLI/Ecommerce_Order_Engine_Hackathon.git
+## 🔥 Key Highlights
+
+- Built a concurrent e-commerce order engine using Core Java
+- Implemented transaction rollback to maintain data consistency
+- Used locking mechanism to prevent overselling
+- Designed scalable backend simulation with CLI interface
