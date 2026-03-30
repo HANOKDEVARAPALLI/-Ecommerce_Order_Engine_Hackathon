@@ -86,6 +86,9 @@ public class MainApp {
                     int oid = sc.nextInt();
                     orderService.cancelOrder(oid);
                     break;
+                case 8:
+                    productService.lowStockAlert();
+                    break;
 
                 case 0:
                     System.exit(0);

@@ -34,4 +34,12 @@ public class ProductService {
     public Product getProduct(int id) {
         return productMap.get(id);
     }
+    public void lowStockAlert() {
+
+        for (Product p : productMap.values()) {
+            if (p.getStock() <= 5) {
+                System.out.println("⚠️ Low stock: " + p.getName());
+            }
+        }
+    }
 }
