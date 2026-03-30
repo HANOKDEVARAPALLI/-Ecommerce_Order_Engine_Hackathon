@@ -23,7 +23,7 @@ public class OrderService {
             total += item.getProduct().getPrice() * item.getQuantity();
         }
 
-        // 🔥 Step 2: Apply discount BEFORE creating order
+        // 🔥 Step 2: Apply discount
         if (total > 1000) {
             total = total * 0.9;
             System.out.println("🎉 10% discount applied");
@@ -42,17 +42,14 @@ public class OrderService {
             order.setStatus(OrderStatus.PAID);
             orders.put(order.getOrderId(), order);
 
-            cart.clearCart(); // clear cart
+            cart.clearCart();
 
             System.out.println("✅ Order placed successfully");
         } else {
             // 🔥 ROLLBACK
             order.setStatus(OrderStatus.FAILED);
 
-            for (CartItem item : cart.getItems().values()) {
-                Product p = item.getProduct();
-                p.setStock(p.getStock() + item.getQuantity()); // restore stock
-            }
+            restoreStock(cart.getItems()); // 🔥 reusable method
 
             System.out.println("⚠️ Order failed. Stock restored.");
         }
@@ -71,7 +68,7 @@ public class OrderService {
         }
     }
 
-    // 🔥 CANCEL ORDER (CORRECTED)
+    // 🔥 CANCEL ORDER
     public void cancelOrder(int orderId) {
 
         Order order = orders.get(orderId);
@@ -86,20 +83,23 @@ public class OrderService {
             return;
         }
 
-        // 🔥 Only PAID orders can be cancelled
         if (order.getStatus() != OrderStatus.PAID) {
             System.out.println("❌ Only PAID orders can be cancelled");
             return;
         }
 
-        // 🔥 Restore stock
-        for (CartItem item : order.getItems().values()) {
-            Product p = item.getProduct();
-            p.setStock(p.getStock() + item.getQuantity());
-        }
+        restoreStock(order.getItems()); // 🔥 reuse
 
         order.setStatus(OrderStatus.CANCELLED);
 
         System.out.println("✅ Order cancelled & stock restored");
+    }
+
+    // 🔥 COMMON METHOD (BEST PRACTICE)
+    private void restoreStock(Map<Integer, CartItem> items) {
+        for (CartItem item : items.values()) {
+            Product p = item.getProduct();
+            p.setStock(p.getStock() + item.getQuantity());
+        }
     }
 }

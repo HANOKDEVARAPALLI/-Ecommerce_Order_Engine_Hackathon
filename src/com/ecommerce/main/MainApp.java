@@ -26,6 +26,8 @@ public class MainApp {
             System.out.println("4. View Cart");
             System.out.println("5. Place Order");
             System.out.println("6. View Orders");
+            System.out.println("7. Cancel Order");
+            System.out.println("8. Low Stock Alert");
             System.out.println("0. Exit");
 
             int choice = sc.nextInt();
