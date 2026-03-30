@@ -64,4 +64,28 @@ public class OrderService {
                     " | Total: ₹" + o.getTotal());
         }
     }
+    public void cancelOrder(int orderId) {
+
+        Order order = orders.get(orderId);
+
+        if (order == null) {
+            System.out.println("❌ Order not found");
+            return;
+        }
+
+        if (order.getStatus() == OrderStatus.CANCELLED) {
+            System.out.println("❌ Already cancelled");
+            return;
+        }
+
+        // restore stock
+        for (CartItem item : order.getItems().values()) {
+            Product p = item.getProduct();
+            p.setStock(p.getStock() + item.getQuantity());
+        }
+
+        order.setStatus(OrderStatus.CANCELLED);
+
+        System.out.println("✅ Order cancelled & stock restored");
+    }
 }
