@@ -1,40 +1,37 @@
-# -Ecommerce_Order_Engine_Hackathon
-Distributed E-Commerce Order Engine (CLI) using Core Java with concurrency, transactions, and event simulation
-# 🛒 Ecommerce Order Engine (CLI)
+# 🛒 E-commerce Order Engine (CLI)
 
-A distributed e-commerce backend simulation built using Core Java.
+A backend simulation of an e-commerce system built using Core Java.  
+Implements inventory management, order processing, concurrency control, and transaction rollback.
+
+---
 
 ## 🚀 Features
 
-- Product Management (Add/View)
+- Product Management (Add/View Products)
 - Multi-user Cart System
-- Stock Reservation System
+- Stock Reservation (Prevents overselling)
 - Order Placement Engine
 - Payment Simulation (Success/Failure)
-- Transaction Rollback System
-- Concurrency Handling using Locks
-- CLI Menu Interface
+- Transaction Rollback (Inventory Recovery)
+- Order Cancellation with Stock Restoration
+- Concurrency Handling using ReentrantLock
+- Low Stock Alert System
+- CLI-based Interactive Menu
 
 ---
 
-## 🧠 Design Approach
+## 🧠 Key Concepts Used
 
-- Used **OOP principles** for clean architecture
-- Implemented **Map-based in-memory storage**
-- Used **ReentrantLock** for concurrency control
-- Designed **transaction rollback mechanism** for failure handling
+- Object-Oriented Programming (OOP)
+- HashMap-based In-memory Storage
+- Concurrency Control (ReentrantLock)
+- Transaction Management (Rollback)
+- Clean Code & Modular Design
 
 ---
-
 
 ## ⚙️ How to Run
 
 1. Clone the repository:
 ```bash
 git clone https://github.com/HANOKDEVARAPALLI/Ecommerce_Order_Engine_Hackathon.git
-## 🔥 Key Highlights
-
-- Built a concurrent e-commerce order engine using Core Java
-- Implemented transaction rollback to maintain data consistency
-- Used locking mechanism to prevent overselling
-- Designed scalable backend simulation with CLI interface
